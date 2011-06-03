@@ -43,4 +43,15 @@ describe("Proletarian", function() {
       expect(new Proletarian().getCommands()).toEqual([new Proletarian.BoldCommand(), new Proletarian.ItalicCommand()]);
     });
   });
+
+  describe('#build', function () {
+    beforeEach(function () {
+      loadFixtures("commands.html");
+      new Proletarian({ targets: "#edit_me" }).build();
+    });
+
+    it('adds command buttons above the editable area', function () {
+      expect($("#commands")).toContain("button.proletarian-command");
+    });
+  });
 });

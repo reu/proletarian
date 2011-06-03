@@ -11,7 +11,7 @@
   Command = (function() {
     function Command() {}
     Command.prototype.execute = function() {
-      return execCommand(this.name);
+      return document.execCommand(this.name);
     };
     Command.prototype.getName = function() {
       return this.name;
@@ -66,6 +66,21 @@
     };
     Proletarian.prototype.getCommands = function() {
       return this.commands;
+    };
+    Proletarian.prototype.build = function() {
+      var commands, targets;
+      commands = this.getCommands();
+      targets = this.getTargets();
+      return jQuery.each(targets, function(index, target) {
+        return jQuery.each(commands, function(index, command) {
+          var button;
+          button = jQuery("<button class='proletarian-command'>" + (command.getLabel()) + "</button>");
+          button.click(function() {
+            return command.execute();
+          });
+          return jQuery(target).before(button);
+        });
+      });
     };
     return Proletarian;
   })();

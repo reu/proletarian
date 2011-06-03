@@ -44,6 +44,16 @@ class Proletarian
   getCommands: ->
     @commands
 
+  build: ->
+    commands = @getCommands()
+    targets = @getTargets()
+
+    jQuery.each targets, (index, target) ->
+      jQuery.each commands, (index, command) ->
+        button = jQuery "<button class='proletarian-command'>#{command.getLabel()}</button>"
+        button.click -> command.execute()
+        jQuery(target).before button
+
 (exports ? this).Proletarian = Proletarian
 (exports ? this).Proletarian.Command = Command
 (exports ? this).Proletarian.BoldCommand = BoldCommand
