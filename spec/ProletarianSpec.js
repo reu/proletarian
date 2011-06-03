@@ -25,4 +25,22 @@ describe("Proletarian", function() {
       expect(proletarian.getTargets().size()).toBe(2);
     });
   });
+
+  describe('#commands', function () {
+    var proletarian;
+    var commands;
+
+    beforeEach(function () {
+      commands = [new Proletarian.BoldCommand(), new Proletarian.ImageCommand()];
+      proletarian = new Proletarian({ commands: commands });
+    });
+
+    it('lists all its commands', function () {
+      expect(proletarian.getCommands()).toEqual(commands);
+    });
+
+    it('defaults to bold and italic commands', function () {
+      expect(new Proletarian().getCommands()).toEqual([new Proletarian.BoldCommand(), new Proletarian.ItalicCommand()]);
+    });
+  });
 });

@@ -1,18 +1,3 @@
-class Proletarian
-  @defaults =
-    lineBreak: true
-    targets: "[contenteditable='true']"
-
-  constructor: (options = {}) ->
-    @options = jQuery.extend({}, Proletarian.defaults, options)
-    @targets = @options.targets
-
-  getOptions: ->
-    @options
-
-  getTargets: ->
-    jQuery(@targets)
-
 class Command
   execute: ->
     execCommand @name
@@ -35,6 +20,29 @@ class ImageCommand extends Command
   constructor: ->
     @name  = "insertImage"
     @label = "Image"
+
+class Proletarian
+  @defaults =
+    lineBreak: true
+    targets: "[contenteditable='true']"
+    commands: [
+      new BoldCommand,
+      new ItalicCommand
+    ]
+
+  constructor: (options = {}) ->
+    @options = jQuery.extend({}, Proletarian.defaults, options)
+    @targets = @options.targets
+    @commands = @options.commands
+
+  getOptions: ->
+    @options
+
+  getTargets: ->
+    jQuery(@targets)
+
+  getCommands: ->
+    @commands
 
 (exports ? this).Proletarian = Proletarian
 (exports ? this).Proletarian.Command = Command

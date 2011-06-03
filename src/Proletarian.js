@@ -8,26 +8,6 @@
     child.__super__ = parent.prototype;
     return child;
   };
-  Proletarian = (function() {
-    Proletarian.defaults = {
-      lineBreak: true,
-      targets: "[contenteditable='true']"
-    };
-    function Proletarian(options) {
-      if (options == null) {
-        options = {};
-      }
-      this.options = jQuery.extend({}, Proletarian.defaults, options);
-      this.targets = this.options.targets;
-    }
-    Proletarian.prototype.getOptions = function() {
-      return this.options;
-    };
-    Proletarian.prototype.getTargets = function() {
-      return jQuery(this.targets);
-    };
-    return Proletarian;
-  })();
   Command = (function() {
     function Command() {}
     Command.prototype.execute = function() {
@@ -63,6 +43,31 @@
       this.label = "Image";
     }
     return ImageCommand;
+  })();
+  Proletarian = (function() {
+    Proletarian.defaults = {
+      lineBreak: true,
+      targets: "[contenteditable='true']",
+      commands: [new BoldCommand, new ItalicCommand]
+    };
+    function Proletarian(options) {
+      if (options == null) {
+        options = {};
+      }
+      this.options = jQuery.extend({}, Proletarian.defaults, options);
+      this.targets = this.options.targets;
+      this.commands = this.options.commands;
+    }
+    Proletarian.prototype.getOptions = function() {
+      return this.options;
+    };
+    Proletarian.prototype.getTargets = function() {
+      return jQuery(this.targets);
+    };
+    Proletarian.prototype.getCommands = function() {
+      return this.commands;
+    };
+    return Proletarian;
   })();
   (typeof exports != "undefined" && exports !== null ? exports : this).Proletarian = Proletarian;
   (typeof exports != "undefined" && exports !== null ? exports : this).Proletarian.Command = Command;
