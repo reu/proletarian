@@ -1,6 +1,9 @@
 class Proletarian
+  @defaults =
+    lineBreak: true
+
   constructor: (options = {}) ->
-    @options = options
+    @options = jQuery.extend({}, Proletarian.defaults, options)
 
   getOptions: ->
     @options

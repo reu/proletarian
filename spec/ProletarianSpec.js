@@ -1,21 +1,15 @@
 describe("Proletarian", function() {
   describe("#options", function(){
-    var options;
-
-    beforeEach(function(){
-      options = { some: "option", and: "another one" }
+    it("has some default values", function(){
+      var proletarian = new Proletarian();
+      expect(proletarian.getOptions()).toEqual(Proletarian.defaults);
     });
 
     it("allows passing options on its initialization", function(){
+      var options = { some: "option" }
       var proletarian = new Proletarian(options);
 
-      expect(proletarian.getOptions()).toBe(options);
-    });
-
-    it("creates an empty set of options if not informed on initialization", function(){
-      var proletarian = new Proletarian();
-
-      expect(proletarian.getOptions()).toEqual({});
+      expect(proletarian.getOptions().some).toEqual(options.some);
     });
   });
 });

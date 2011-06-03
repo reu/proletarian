@@ -1,11 +1,14 @@
 (function() {
   var Proletarian;
   Proletarian = (function() {
+    Proletarian.defaults = {
+      lineBreak: true
+    };
     function Proletarian(options) {
       if (options == null) {
         options = {};
       }
-      this.options = options;
+      this.options = jQuery.extend({}, Proletarian.defaults, options);
     }
     Proletarian.prototype.getOptions = function() {
       return this.options;
