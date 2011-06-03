@@ -1,6 +1,6 @@
 class Command
   execute: ->
-    execCommand @name
+    document.execCommand @name
 
   getName: ->
     @name
