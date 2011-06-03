@@ -28,6 +28,15 @@
     hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
     .footer { text-align:center; padding-top:30px; font-style: italic; }
   </style>
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+  <script type="text/javascript" src="http://github.com/reu/proletarian/raw/master/src/Proletarian.js"></script>
+
+  <script type="text/javascript">
+    jQuery(function(){
+      new Proletarian().build();
+    });
+  </script>
 </head>
 
 <body>
@@ -47,6 +56,11 @@
 
     <div class="description">
       A not so rich text editor
+    </div>
+
+    <h2>Demo<h2>
+    <div contentEditable="true">
+      I am so editable!
     </div>
 
     <h2>Authors</h2>
