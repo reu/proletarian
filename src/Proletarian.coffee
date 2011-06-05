@@ -1,12 +1,18 @@
 class Command
   execute: ->
-    document.execCommand @name
+    document.execCommand @name, @showDefaultUi(), @extraArgument()
 
   getName: ->
     @name
 
   getLabel: ->
     @label ?= @name
+
+  showDefaultUi: ->
+    false
+
+  extraArgument: ->
+    true
 
 class BoldCommand extends Command
   constructor: ->

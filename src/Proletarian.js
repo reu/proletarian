@@ -11,7 +11,7 @@
   Command = (function() {
     function Command() {}
     Command.prototype.execute = function() {
-      return document.execCommand(this.name);
+      return document.execCommand(this.name, this.showDefaultUi(), this.extraArgument());
     };
     Command.prototype.getName = function() {
       return this.name;
@@ -19,6 +19,12 @@
     Command.prototype.getLabel = function() {
       var _ref;
       return (_ref = this.label) != null ? _ref : this.label = this.name;
+    };
+    Command.prototype.showDefaultUi = function() {
+      return false;
+    };
+    Command.prototype.extraArgument = function() {
+      return true;
     };
     return Command;
   })();
