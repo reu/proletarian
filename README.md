@@ -1,8 +1,8 @@
 # Proletarian - The not so rich text editor
-Proletarian is a simple(st) and tiny rich text editor for the web. It aims to add just basic functionality as bold, italics and lists.
+Proletarian is a simple(st) and tiny rich text editor. It aims to add just basic functionalities, such as bold, italics, images and lists support.
 
 # Demo
-A basic demonstration can be found on the project page: http://reu.github.com/proletarian
+A basic demonstration can be found at the project page: http://reu.github.com/proletarian
 
 # Disclaimer
 For now, this is just a toy project which I used to learn some basics of coffesscript and jasmine, so, don't expect too much.
