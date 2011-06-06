@@ -35,6 +35,9 @@ class ImageCommand extends Command
     @name  = "insertImage"
     @label = "Image"
 
+  extraArgument: ->
+    prompt "Inform the image url: "
+
 class Proletarian
   @defaults =
     lineBreak: true

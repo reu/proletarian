@@ -60,6 +60,8 @@ describe('ImageCommand', function () {
   var command;
 
   beforeEach(function () {
+    loadFixtures("commands.html");
+    $("#edit_me").attr("contentEditable", true).focus();
     command = new Proletarian.ImageCommand();
   });
 
@@ -70,4 +72,10 @@ describe('ImageCommand', function () {
   it('has image as its label', function() {
     expect(command.getLabel()).toEqual('Image');
   });
+
+  it('asks for a image url when executed', function() {
+    spyOn(window, "prompt");
+    expect(command.execute()).toBeTruthy();
+  });
+
 });

@@ -64,6 +64,9 @@
       this.name = "insertImage";
       this.label = "Image";
     }
+    ImageCommand.prototype.extraArgument = function() {
+      return prompt("Inform the image url: ");
+    };
     return ImageCommand;
   })();
   Proletarian = (function() {
