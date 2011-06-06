@@ -41,35 +41,29 @@ class ImageCommand extends Command
 class Proletarian
   @defaults =
     lineBreak: true
-    targets: "[contenteditable='true']"
     commands: [
       new BoldCommand,
       new ItalicCommand
     ]
 
   constructor: (options = {}) ->
-    @options = jQuery.extend({}, Proletarian.defaults, options)
-    @targets = @options.targets
+    @options  = jQuery.extend({}, Proletarian.defaults, options)
     @commands = @options.commands
+    @current  = null
 
-  getOptions: ->
-    @options
+  unbuild: ->
+    @current.attr "contentEditable", false
 
-  getTargets: ->
-    jQuery(@targets)
+  buildOn: (target) ->
+    unbuild() if @current
 
-  getCommands: ->
-    @commands
+    @current = jQuery(target)
+    @current.attr "contentEditable", true
 
-  build: ->
-    commands = @getCommands()
-    targets = @getTargets()
-
-    jQuery.each targets, (index, target) ->
-      jQuery.each commands, (index, command) ->
-        button = jQuery "<button class='proletarian-command'>#{command.getLabel()}</button>"
-        button.click -> command.execute()
-        jQuery(target).before button
+    jQuery.each @commands, (index, command) ->
+      button = jQuery "<button class='proletarian-command'>#{command.getLabel()}</button>"
+      button.click -> command.execute()
+      jQuery(target).before button
 
 (exports ? this).Proletarian = Proletarian
 (exports ? this).Proletarian.Command = Command

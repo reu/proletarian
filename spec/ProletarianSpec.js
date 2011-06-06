@@ -2,27 +2,14 @@ describe("Proletarian", function() {
   describe("#options", function(){
     it("has some default values", function(){
       var proletarian = new Proletarian();
-      expect(proletarian.getOptions()).toEqual(Proletarian.defaults);
+      expect(proletarian.options).toEqual(Proletarian.defaults);
     });
 
     it("allows passing options on its initialization", function(){
       var options = { some: "option" }
       var proletarian = new Proletarian(options);
 
-      expect(proletarian.getOptions().some).toEqual(options.some);
-    });
-  });
-
-  describe("#targets", function(){
-    var proletarian;
-
-    beforeEach(function () {
-      loadFixtures("editableDivs.html");
-      proletarian = new Proletarian();
-    });
-
-    it('defaults to all contentEditable elements', function() {
-      expect(proletarian.getTargets().size()).toBe(2);
+      expect(proletarian.options.some).toEqual(options.some);
     });
   });
 
@@ -36,22 +23,40 @@ describe("Proletarian", function() {
     });
 
     it('lists all its commands', function () {
-      expect(proletarian.getCommands()).toEqual(commands);
+      expect(proletarian.commands).toEqual(commands);
     });
 
     it('defaults to bold and italic commands', function () {
-      expect(new Proletarian().getCommands()).toEqual([new Proletarian.BoldCommand(), new Proletarian.ItalicCommand()]);
+      expect(new Proletarian().commands).toEqual([new Proletarian.BoldCommand(), new Proletarian.ItalicCommand()]);
     });
   });
 
-  describe('#build', function () {
+  describe('#buildOn', function () {
     beforeEach(function () {
       loadFixtures("commands.html");
-      new Proletarian({ targets: "#edit_me" }).build();
+      new Proletarian().buildOn("#edit_me");
     });
 
     it('adds command buttons above the editable area', function () {
       expect($("#commands")).toContain("button.proletarian-command");
     });
+
+    it('enables editing the target element', function() {
+      expect($("#edit_me")).toHaveAttr("contentEditable", "true");
+    });
   });
+
+  describe('#unbuild', function () {
+    beforeEach(function () {
+      loadFixtures("commands.html");
+      var proletarian = new Proletarian();
+      proletarian.buildOn("#edit_me");
+      proletarian.unbuild();
+    });
+
+    it('disables editing on the target element', function () {
+      expect($("#edit_me")).toHaveAttr("contentEditable", "false");
+    });
+  });
+
 });

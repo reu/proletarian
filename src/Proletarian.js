@@ -72,7 +72,6 @@
   Proletarian = (function() {
     Proletarian.defaults = {
       lineBreak: true,
-      targets: "[contenteditable='true']",
       commands: [new BoldCommand, new ItalicCommand]
     };
     function Proletarian(options) {
@@ -80,31 +79,25 @@
         options = {};
       }
       this.options = jQuery.extend({}, Proletarian.defaults, options);
-      this.targets = this.options.targets;
       this.commands = this.options.commands;
+      this.current = null;
     }
-    Proletarian.prototype.getOptions = function() {
-      return this.options;
+    Proletarian.prototype.unbuild = function() {
+      return this.current.attr("contentEditable", false);
     };
-    Proletarian.prototype.getTargets = function() {
-      return jQuery(this.targets);
-    };
-    Proletarian.prototype.getCommands = function() {
-      return this.commands;
-    };
-    Proletarian.prototype.build = function() {
-      var commands, targets;
-      commands = this.getCommands();
-      targets = this.getTargets();
-      return jQuery.each(targets, function(index, target) {
-        return jQuery.each(commands, function(index, command) {
-          var button;
-          button = jQuery("<button class='proletarian-command'>" + (command.getLabel()) + "</button>");
-          button.click(function() {
-            return command.execute();
-          });
-          return jQuery(target).before(button);
+    Proletarian.prototype.buildOn = function(target) {
+      if (this.current) {
+        unbuild();
+      }
+      this.current = jQuery(target);
+      this.current.attr("contentEditable", true);
+      return jQuery.each(this.commands, function(index, command) {
+        var button;
+        button = jQuery("<button class='proletarian-command'>" + (command.getLabel()) + "</button>");
+        button.click(function() {
+          return command.execute();
         });
+        return jQuery(target).before(button);
       });
     };
     return Proletarian;
