@@ -2,6 +2,9 @@ class Command
   execute: ->
     document.execCommand @name, @showDefaultUi(), @extraArgument()
 
+  active: ->
+    document.queryCommandState @name
+
   getName: ->
     @name
 
@@ -14,11 +17,16 @@ class Command
   extraArgument: ->
     true
 
-class BoldCommand extends Command
+class TextFormatCommand extends Command
+  execute: ->
+    document.execCommand "removeFormat" unless @active()
+    super
+
+class BoldCommand extends TextFormatCommand
   constructor: ->
     @name = "Bold"
 
-class ItalicCommand extends Command
+class ItalicCommand extends TextFormatCommand
   constructor: ->
     @name = "Italic"
 

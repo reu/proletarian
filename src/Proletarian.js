@@ -1,5 +1,5 @@
 (function() {
-  var BoldCommand, Command, ImageCommand, ItalicCommand, Proletarian;
+  var BoldCommand, Command, ImageCommand, ItalicCommand, Proletarian, TextFormatCommand;
   var __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, parent) {
     for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; }
     function ctor() { this.constructor = child; }
@@ -12,6 +12,9 @@
     function Command() {}
     Command.prototype.execute = function() {
       return document.execCommand(this.name, this.showDefaultUi(), this.extraArgument());
+    };
+    Command.prototype.active = function() {
+      return document.queryCommandState(this.name);
     };
     Command.prototype.getName = function() {
       return this.name;
@@ -28,15 +31,28 @@
     };
     return Command;
   })();
+  TextFormatCommand = (function() {
+    function TextFormatCommand() {
+      TextFormatCommand.__super__.constructor.apply(this, arguments);
+    }
+    __extends(TextFormatCommand, Command);
+    TextFormatCommand.prototype.execute = function() {
+      if (!this.active()) {
+        document.execCommand("removeFormat");
+      }
+      return TextFormatCommand.__super__.execute.apply(this, arguments);
+    };
+    return TextFormatCommand;
+  })();
   BoldCommand = (function() {
-    __extends(BoldCommand, Command);
+    __extends(BoldCommand, TextFormatCommand);
     function BoldCommand() {
       this.name = "Bold";
     }
     return BoldCommand;
   })();
   ItalicCommand = (function() {
-    __extends(ItalicCommand, Command);
+    __extends(ItalicCommand, TextFormatCommand);
     function ItalicCommand() {
       this.name = "Italic";
     }

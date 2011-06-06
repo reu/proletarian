@@ -2,6 +2,8 @@ describe('BoldCommand', function () {
   var command;
 
   beforeEach(function () {
+    loadFixtures("commands.html");
+    $("#edit_me").attr("contentEditable", true).focus();
     command = new Proletarian.BoldCommand();
   });
 
@@ -12,12 +14,25 @@ describe('BoldCommand', function () {
   it('has bold as its label', function() {
     expect(command.getLabel()).toEqual('Bold');
   });
+
+  it('is active after executing it', function(){
+    command.execute();
+    expect(command.active()).toBeTruthy();
+  });
+
+  it('removes it if it already active', function () {
+    command.execute();
+    command.execute();
+    expect(command.active()).toBeFalsy();
+  });
 });
 
 describe('ItalicCommand', function () {
   var command;
 
   beforeEach(function () {
+    loadFixtures("commands.html");
+    $("#edit_me").attr("contentEditable", true).focus();
     command = new Proletarian.ItalicCommand();
   });
 
@@ -27,6 +42,17 @@ describe('ItalicCommand', function () {
 
   it('has italic as its label', function() {
     expect(command.getLabel()).toEqual('Italic');
+  });
+
+  it('is active after executing it', function(){
+    command.execute();
+    expect(command.active()).toBeTruthy();
+  });
+
+  it('removes it if it already active', function () {
+    command.execute();
+    command.execute();
+    expect(command.active()).toBeFalsy();
   });
 });
 
