@@ -34,7 +34,9 @@
 
   <script type="text/javascript">
     jQuery(function(){
-      new Proletarian().build();
+      new Proletarian().build({
+        commands: [new Proletarian.BoldCommand(), new Proletarian.ItalicCommand(), new Proletarian.ImageCommand()]
+      });
     });
   </script>
 </head>
