@@ -17,13 +17,13 @@ describe('BoldCommand', function () {
 
   it('is active after executing it', function(){
     command.execute();
-    expect(command.active()).toBeTruthy();
+    expect(command.isActive()).toBeTruthy();
   });
 
   it('removes it if it already active', function () {
     command.execute();
     command.execute();
-    expect(command.active()).toBeFalsy();
+    expect(command.isActive()).toBeFalsy();
   });
 });
 
@@ -46,13 +46,13 @@ describe('ItalicCommand', function () {
 
   it('is active after executing it', function(){
     command.execute();
-    expect(command.active()).toBeTruthy();
+    expect(command.isActive()).toBeTruthy();
   });
 
   it('removes it if it already active', function () {
     command.execute();
     command.execute();
-    expect(command.active()).toBeFalsy();
+    expect(command.isActive()).toBeFalsy();
   });
 });
 
