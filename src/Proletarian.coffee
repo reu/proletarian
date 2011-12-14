@@ -84,22 +84,22 @@ class Proletarian
   constructor: (options = {}) ->
     @options  = jQuery.extend({}, Proletarian.defaults, options)
     @commands = @options.commands
-    @current  = @options.target
+    @target   = @options.target
 
   unbuild: ->
-    @current.attr "contentEditable", false
+    @target.attr "contentEditable", false
 
   buildOn: (target) ->
-    @unbuild() if @current
-    @current = jQuery(target)
+    @unbuild() if @target
+    @target = jQuery(target)
     @build()
 
   build: ->
-    @current.attr "contentEditable", true
+    @target.attr "contentEditable", true
     @buildCommandsBar()
 
   buildCommandsBar: =>
-    target = @current
+    target = @target
     jQuery.each @commands, (index, command) ->
       button = jQuery "<button class='proletarian-command'>#{command.getLabel()}</button>"
       button.click ->
@@ -107,12 +107,35 @@ class Proletarian
         target.trigger "change"
       jQuery(target).before button
 
+class TextAreaProletarian extends Proletarian
+  buildOn: (target) ->
+    @unbuild() if @target
+    @textArea = jQuery(target)
+    editableElement = jQuery("<div contentEditable>#{@textArea.val()}</div>")
+    @textArea.after(editableElement)
+    @textArea.hide()
+    @target = jQuery(editableElement)
+    @build()
+
+    textArea = @textArea
+
+    @target.bind "change keyup", -> textArea.val(@innerHTML)
+
+  unbuild: ->
+    super()
+    @target.remove()
+    @textArea.show()
+
 jQuery.fn.proletarian = (options = {}) ->
   @each (element) ->
-    new Proletarian(options).buildOn(this)
+    if $(this).get(0).tagName == "TEXTAREA"
+      new TextAreaProletarian(options).buildOn(this)
+    else
+      new Proletarian(options).buildOn(this)
   this
 
 (exports ? this).Proletarian = Proletarian
+(exports ? this).TextAreaProletarian = TextAreaProletarian
 (exports ? this).Proletarian.Command = Command
 (exports ? this).Proletarian.BoldCommand = BoldCommand
 (exports ? this).Proletarian.ItalicCommand = ItalicCommand
