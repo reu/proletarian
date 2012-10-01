@@ -260,17 +260,19 @@
     };
 
     Proletarian.prototype.buildCommandsBar = function() {
-      var target;
+      var commandsList, target;
       target = this.target;
-      return jQuery.each(this.commands, function(index, command) {
+      commandsList = jQuery("<ul></ul>");
+      jQuery.each(this.commands, function(index, command) {
         var button;
         button = jQuery("<button class='proletarian-command'>" + (command.getLabel()) + "</button>");
         button.click(function() {
           command.execute();
           return target.trigger("change");
         });
-        return jQuery(target).before(button);
+        return jQuery(commandsList).append(jQuery("<li></li>").append(button));
       });
+      return jQuery(target).before(commandsList);
     };
 
     return Proletarian;

@@ -100,12 +100,15 @@ class Proletarian
 
   buildCommandsBar: =>
     target = @target
+    commandsList = jQuery("<ul></ul>")
     jQuery.each @commands, (index, command) ->
       button = jQuery "<button class='proletarian-command'>#{command.getLabel()}</button>"
       button.click ->
         command.execute()
         target.trigger "change"
-      jQuery(target).before button
+      jQuery(commandsList).append jQuery("<li></li>").append(button)
+
+    jQuery(target).before(commandsList)
 
 class TextAreaProletarian extends Proletarian
   buildOn: (target) ->
