@@ -34,9 +34,7 @@
 
   <script type="text/javascript">
     jQuery(function(){
-      new Proletarian({
-        commands: [new Proletarian.BoldCommand(), new Proletarian.ItalicCommand(), new Proletarian.ImageCommand()]
-      }).buildOn("#edit_area")
+      $("edit_area").proletarian();
     });
   </script>
 </head>
@@ -88,6 +86,5 @@
 
   </div>
 
-  
 </body>
 </html>
