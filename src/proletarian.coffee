@@ -73,12 +73,6 @@ class Proletarian
     commands: [
       new BoldCommand
       new ItalicCommand
-      new ImageCommand
-      new LinkCommand
-      new OrderedListCommand
-      new UnorderedListCommand
-      new IndentCommand
-      new OutdentCommand
     ]
 
   constructor: (options = {}) ->
