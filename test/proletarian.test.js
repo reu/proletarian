@@ -1,5 +1,5 @@
 describe("Proletarian", function(){
-  var fixturesContext = function() { return $(document.getElementById(fixtures.containerId)).contents() }
+  var fixturesContext = function() { return $("#fixtures") }
 
   describe("#options", function(){
     it("has some default values", function(){
@@ -19,7 +19,7 @@ describe("Proletarian", function(){
     var proletarian;
     var commands;
 
-    before(function(){
+    beforeEach(function(){
       commands = [new Proletarian.BoldCommand(), new Proletarian.ImageCommand()];
       proletarian = new Proletarian({ commands: commands });
     });
@@ -34,13 +34,8 @@ describe("Proletarian", function(){
   });
 
   describe('#buildOn', function(){
-    before(function(){
-      fixtures.load("commands.html");
+    beforeEach(function(){
       new Proletarian().buildOn(fixturesContext().find("#edit_me"));
-    });
-
-    after(function(){
-      fixtures.cleanUp();
     });
 
     it('adds command buttons above the editable area', function(){
@@ -53,15 +48,10 @@ describe("Proletarian", function(){
   });
 
   describe('#unbuild', function(){
-    before(function(){
-      fixtures.load("commands.html");
+    beforeEach(function(){
       var proletarian = new Proletarian();
       proletarian.buildOn(fixturesContext().find("#edit_me"));
       proletarian.unbuild();
-    });
-
-    after(function(){
-      fixtures.cleanUp();
     });
 
     it('disables editing on the target element', function(){
