@@ -58,4 +58,12 @@ describe("Proletarian", function(){
       $expect($("#edit_me", fixturesContext())).to.have.attr("contentEditable", "false");
     });
   });
+
+  describe("$.proletarian", function(){
+    it("sets Proletarian object into target dom element", function(){
+      fixturesContext().find("#edit_me").proletarian();
+
+      expect(fixturesContext().find("#edit_me").data()).to.have.property("proletarian");
+    });
+  });
 });

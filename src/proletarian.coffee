@@ -126,9 +126,13 @@ class TextAreaProletarian extends Proletarian
 jQuery.fn.proletarian = (options = {}) ->
   @each (element) ->
     if $(this).get(0).tagName == "TEXTAREA"
-      new TextAreaProletarian(options).buildOn(this)
+      proletarian = new TextAreaProletarian(options)
+      proletarian.buildOn(this)
+      $(this).data("proletarian", proletarian)
     else
-      new Proletarian(options).buildOn(this)
+      proletarian = new Proletarian(options)
+      proletarian.buildOn(this)
+      $(this).data("proletarian", proletarian)
   this
 
 (exports ? this).Proletarian = Proletarian
