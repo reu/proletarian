@@ -10,16 +10,22 @@
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="mocha.js"></script>
     <script src="expect.js"></script>
-    <script src="fixtures.js"></script>
     <script src="jquery.expect.js"></script>
 
-    <script>fixtures.path = "fixtures"</script>
     <script>mocha.setup('bdd')</script>
 
     <script src="../src/proletarian.js"></script>
+    <script src="command.test.js"></script>
     <script src="proletarian.test.js"></script>
     <script>
-      mocha.run();
+      mocha.run().globals(["prompt"]);
     </script>
+
+    <div id="fixtures">
+      <div id="commands">
+        <div id="edit_me">
+        </div>
+      </div>
+    </div>
   </body>
 </html>
