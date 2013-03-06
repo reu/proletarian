@@ -326,10 +326,15 @@
       options = {};
     }
     this.each(function(element) {
+      var proletarian;
       if ($(this).get(0).tagName === "TEXTAREA") {
-        return new TextAreaProletarian(options).buildOn(this);
+        proletarian = new TextAreaProletarian(options);
+        proletarian.buildOn(this);
+        return $(this).data("proletarian", proletarian);
       } else {
-        return new Proletarian(options).buildOn(this);
+        proletarian = new Proletarian(options);
+        proletarian.buildOn(this);
+        return $(this).data("proletarian", proletarian);
       }
     });
     return this;
